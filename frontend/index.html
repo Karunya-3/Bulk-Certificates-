@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bulk Certificate Generator</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Bulk Certificate Generator</h1>
+    <p class="subtitle">Demonstration UI for FastAPI + MongoDB Certificate Backend</p>
+
+    <form id="certForm">
+      <div class="form-group">
+        <label for="eventName">Event / Course Name:</label>
+        <input type="text" id="eventName" value="Python Workshop" required placeholder="e.g. Python Workshop">
+      </div>
+
+      <div class="form-group">
+        <label for="certDate">Certificate Date:</label>
+        <input type="date" id="certDate" required>
+      </div>
+
+      <div class="form-group">
+        <label>Input Mode:</label>
+        <div class="input-mode-selector">
+          <label class="radio-inline">
+            <input type="radio" name="inputMode" value="textarea" checked> Manual Entry (Textarea)
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="inputMode" value="file"> Upload File (.xlsx / .csv)
+          </label>
+        </div>
+      </div>
+
+      <!-- Textarea Input Block -->
+      <div id="manualInputBlock" class="form-group">
+        <label for="recipients">Recipients (Name, Email per line):</label>
+        <textarea id="recipients" rows="6" placeholder="John Doe,john@example.com&#10;Alice Smith,alice@example.com&#10;Bob Johnson,bob@example.com"></textarea>
+      </div>
+
+      <!-- File Upload Block -->
+      <div id="fileUploadBlock" class="form-group" style="display: none;">
+        <label for="excelFile">Select Excel or CSV File:</label>
+        <input type="file" id="excelFile" accept=".xlsx, .xls, .csv">
+        <small class="help-text">File should contain headers: <strong>Name</strong> and <strong>Email</strong></small>
+      </div>
+
+      <button type="submit" id="submitBtn">Generate Certificates</button>
+    </form>
+
+    <div id="errorAlert" class="error-box" style="display: none;"></div>
+
+    <div id="statusContainer" class="status-box" style="display: none;">
+      <h2>Job Status</h2>
+      <div class="status-field"><strong>Job ID:</strong> <span id="jobId"></span></div>
+      <div class="status-field"><strong>Status:</strong> <span id="jobStatus" class="badge"></span></div>
+      <div class="status-field"><strong>Progress:</strong> <span id="jobProgress"></span></div>
+      <div class="status-field"><strong>Successful:</strong> <span id="jobSuccess"></span></div>
+      <div class="status-field"><strong>Failed:</strong> <span id="jobFailed"></span></div>
+
+      <div class="progress-bar-container">
+        <div id="progressBar" class="progress-bar" style="width: 0%;"></div>
+      </div>
+
+      <div id="certificatesList" class="certificates-list"></div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
